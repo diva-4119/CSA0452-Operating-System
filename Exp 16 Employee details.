@@ -1,0 +1,54 @@
+#include <stdio.h>
+
+struct emp {
+    int empId;
+    char empName[20];
+    float empSalary;
+};
+
+int main() {
+    struct emp emp;
+    int choice;
+
+    printf("1.Add Employee\n2.Display Employee\n3.Exit\n");
+    printf("Enter choice: ");
+    scanf("%d", &choice);
+
+    if (choice == 1) {
+        printf("Enter Employee ID: ");
+        scanf("%d", &emp.empId);
+
+        printf("Enter Employee Name: ");
+        scanf("%s", emp.empName);
+
+        printf("Enter Employee Salary: ");
+        scanf("%f", &emp.empSalary);
+
+        printf("Employee Added Successfully\n");
+    }
+
+    else if (choice == 2) {
+        printf("Employee ID: %d\n", emp.empId);
+        printf("Employee Name: %s\n", emp.empName);
+        printf("Employee Salary: %.2f\n", emp.empSalary);
+    }
+
+    else if (choice == 3) {
+        printf("Exit\n");
+    }
+
+    else {
+        printf("Invalid choice\n");
+    }
+
+    return 0;
+}
+output:
+1.Add Employee
+2.Display Employee
+3.Exit
+Enter choice: 1
+Enter Employee ID: 119
+Enter Employee Name: diva
+Enter Employee Salary: 25000
+Employee Added Successfully
