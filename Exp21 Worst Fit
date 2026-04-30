@@ -53,3 +53,18 @@ int main() {
     printf("\n");
     return 0;
 }
+output:
+===========================================
+      WORST FIT MEMORY ALLOCATION
+===========================================
+
+Memory Blocks (KB): [B1:100] [B2:500] [B3:200] [B4:300] [B5:600] 
+Process Sizes (KB): [P1:212] [P2:417] [P3:112] [P4:426] 
+Process      Process Size(KB)   Block Assigned   Status      
+---------------------------------------------------------------
+P1           212                Block 5          ALLOCATED
+P2           417                Block 2          ALLOCATED
+P3           112                Block 5          ALLOCATED
+P4           426                ---              NOT ALLOCATED
+
+Remaining Block Sizes (KB): [B1:100] [B2:83] [B3:200] [B4:300] [B5:276] 
