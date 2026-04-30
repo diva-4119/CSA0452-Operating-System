@@ -1,0 +1,69 @@
+#include <stdio.h>
+ 
+#define MAX 25
+void bestFit(int blockSize[], int blocks, int processSize[], int processes) {
+    int allocation[MAX];
+    for (int i = 0; i < processes; i++) allocation[i] = -1;
+ 
+    for (int i = 0; i < processes; i++) {
+        int bestIdx = -1;
+        for (int j = 0; j < blocks; j++) {
+            if (blockSize[j] >= processSize[i]) {
+                if (bestIdx == -1 || blockSize[j] < blockSize[bestIdx])
+                    bestIdx = j;
+            }
+        }
+        if (bestIdx != -1) {
+            allocation[i] = bestIdx;
+            blockSize[bestIdx] -= processSize[i];
+        }
+    }
+ 
+    printf("\n%-12s %-18s %-16s %-12s\n", "Process", "Process Size(KB)", "Block Assigned", "Status");
+    printf("---------------------------------------------------------------\n");
+    for (int i = 0; i < processes; i++) {
+        printf("P%-11d %-18d ", i + 1, processSize[i]);
+        if (allocation[i] != -1)
+            printf("Block %-10d ALLOCATED\n", allocation[i] + 1);
+        else
+            printf("%-16s NOT ALLOCATED\n", "---");
+    }
+}
+ 
+int main() {
+    int blockSize[] = {100, 500, 200, 300, 600};
+    int processSize[] = {212, 417, 112, 426};
+    int blocks = 5, processes = 4;
+ 
+    printf("===========================================\n");
+    printf("       BEST FIT MEMORY ALLOCATION\n");
+    printf("===========================================\n");
+ 
+    printf("\nMemory Blocks (KB): ");
+    for (int i = 0; i < blocks; i++) printf("[B%d:%d] ", i+1, blockSize[i]);
+ 
+    printf("\nProcess Sizes (KB): ");
+    for (int i = 0; i < processes; i++) printf("[P%d:%d] ", i+1, processSize[i]);
+ 
+    bestFit(blockSize, blocks, processSize, processes);
+ 
+    printf("\nRemaining Block Sizes (KB): ");
+    for (int i = 0; i < blocks; i++) printf("[B%d:%d] ", i+1, blockSize[i]);
+    printf("\n");
+    return 0;
+}
+output:
+===========================================
+       BEST FIT MEMORY ALLOCATION
+===========================================
+
+Memory Blocks (KB): [B1:100] [B2:500] [B3:200] [B4:300] [B5:600] 
+Process Sizes (KB): [P1:212] [P2:417] [P3:112] [P4:426] 
+Process      Process Size(KB)   Block Assigned   Status      
+---------------------------------------------------------------
+P1           212                Block 4          ALLOCATED
+P2           417                Block 2          ALLOCATED
+P3           112                Block 3          ALLOCATED
+P4           426                Block 5          ALLOCATED
+
+Remaining Block Sizes (KB): [B1:100] [B2:83] [B3:88] [B4:88] [B5:174]
